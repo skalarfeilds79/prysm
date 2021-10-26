@@ -120,6 +120,7 @@ func NewService(ctx context.Context, opts ...Option) (*Service, error) {
 
 // Start a blockchain service's main event loop.
 func (s *Service) Start() {
+	s.justifiedBalances = NewStateBalanceCache(s.cfg.StateGen)
 	// For running initial sync with state cache, in an event of restart, we use
 	// last finalized check point as start point to sync instead of head
 	// state. This is because we no longer save state every slot during sync.
